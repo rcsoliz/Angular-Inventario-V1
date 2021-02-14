@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.pointer{
+  cursor: pointer;
+}
+.correct{
+  color: #17a2b8;
+}
+.incorrect{
+
+  color: #da2d2d;
+}

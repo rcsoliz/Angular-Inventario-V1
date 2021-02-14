@@ -1,0 +1,16 @@
+.bg-white1{
+  background-color: #f05f44;
+  border-color:  #f05f44;
+}
+.text-dark1 {
+  color: #ffffff!important;
+}
+.btn-outline-success1  {
+  /* color: #198754; */
+  border-color: #ffffff;
+  color: #ffffff!important;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

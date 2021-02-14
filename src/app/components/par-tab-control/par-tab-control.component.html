@@ -1,0 +1,44 @@
+<!-- <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+  <mat-tab label="Categorias">
+    <app-list-categoria></app-list-categoria>
+  </mat-tab>
+   <mat-tab label="Marcas">
+    <app-list-marca></app-list-marca>
+  </mat-tab> -
+  <mat-tab label="Unidades">
+    <app-list-unidad></app-list-unidad>
+  </mat-tab>
+  <mat-tab label="Gestion">
+    <app-list-gestion></app-list-gestion>
+  </mat-tab>
+</mat-tab-group>
+ -->
+
+<mat-tab-group dynamicHeight>
+<!--   <mat-tab label="Short tab">
+    <div class="example-small-box mat-elevation-z4">
+      Small content
+    </div>
+  </mat-tab> -->
+  <mat-tab label="Categorias">
+    <div class="example-large-box mat-elevation-z4">
+      <app-list-categoria></app-list-categoria>
+    </div>
+  </mat-tab>
+  <mat-tab label="Marcas">
+    <div class="example-large-box mat-elevation-z4">
+      <app-list-marca></app-list-marca>
+    </div>
+  </mat-tab>
+  <mat-tab label="Unidades">
+    <div class="example-large-box mat-elevation-z4">
+      <app-list-unidad></app-list-unidad>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Gestion">
+    <div class="example-large-box mat-elevation-z4">
+      <app-list-gestion></app-list-gestion>
+    </div>
+  </mat-tab>
+</mat-tab-group>

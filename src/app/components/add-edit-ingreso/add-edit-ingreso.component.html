@@ -1,0 +1,268 @@
+<mat-card class="mt-0">
+<!--   <mat-card-title> <h2> Ingreso</h2> </mat-card-title>
+ -->
+
+  <div class="row">
+    <div class="col-lg-12">
+
+      <form [formGroup]="myForm">
+        <div class="shadow-sm card">
+          <div class="card-body">
+            <div class="row">
+              <!-- inventarioId -->
+              <div class="col-lg-4">
+                <mat-form-field class="example-container" [style.fontSize.px]=14>
+                  <mat-label>Seleccione Inventario</mat-label>
+                  <mat-select formControlName="inventarioId">
+                    <mat-option *ngFor="let inventario of listInventario" [value]="inventario.id">
+                      {{ inventario.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="myForm.get('inventarioId').hasError('required') && myForm.get('inventarioId').touched" style="margin-top: -20px;">
+                  <span class="mda-form-msg">Este campo es <strong>requerido</strong> </span>
+                </div>
+              </div>
+
+              <!-- tipoDocumentoId -->
+              <div class="col-lg-4">
+                <mat-form-field class="example-container" [style.fontSize.px]=14>
+                  <mat-label>Tipo documento</mat-label>
+                  <mat-select formControlName="tipoDocumentoId" >
+                    <mat-option *ngFor="let tipodocumento of listTipoDocumento" [value]="tipodocumento.id">
+                      {{ tipodocumento.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="myForm.get('tipoDocumentoId').hasError('required') && myForm.get('tipoDocumentoId').touched" style="margin-top: -20px;">
+                  <span class="mda-form-msg">Este campo es <strong>requerido</strong> </span>
+                </div>
+              </div>
+
+              <!-- nIngreso -->
+              <div class="col-lg-4">
+                <mat-form-field class="example-container" [style.fontSize.px]=14>
+                  <mat-label>N Ingreso(s)</mat-label>
+                  <input matInput formControlName="nIngreso">
+                </mat-form-field>
+                <div *ngIf="myForm.get('nIngreso').hasError('required') && myForm.get('nIngreso').touched" style="margin-top: -20px;">
+                  <span  class="mda-form-msg">Este campo es <strong>requerido!</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- proveedorId -->
+              <div class="col-lg-4">
+                <mat-form-field class="example-container" [style.fontSize.px]=14>
+                  <mat-label>Seleccione proveedor</mat-label>
+                  <mat-select formControlName="proveedorId">
+                    <mat-option *ngFor="let proveedor of listProveedor" [value]="proveedor.id">
+                      {{ proveedor.empresa }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="myForm.get('proveedorId').hasError('required') && myForm.get('proveedorId').touched" style="margin-top: -20px;">
+                  <span class="mda-form-msg">Este campo es <strong>requerido</strong> </span>
+                </div>
+              </div>
+
+              <!-- nota -->
+              <div class="col-lg-4">
+                <mat-form-field class="example-container" [style.fontSize.px]=14>
+                  <mat-label>Nota(s)</mat-label>
+                  <input matInput formControlName="nota">
+                </mat-form-field>
+                <div *ngIf="myForm.get('nota').hasError('required') && myForm.get('nota').touched" style="margin-top: -20px;">
+                  <span  class="mda-form-msg">Este campo es <strong>requerido!</strong></span>
+                </div>
+              </div>
+
+              <!-- fechaCreacion -->
+              <div class="col-lg-4">
+                <mat-form-field class="example-container" >
+                  <mat-label>Fecha creacion</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="fechaCreacion">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker touchUi #picker></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="myForm.get('fechaCreacion').hasError('required') && myForm.get('fechaCreacion').touched" style="margin-top: -20px;">
+                  <span  class="mda-form-msg">Este campo es <strong>requerido!</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- productoId -->
+              <div class="col-lg-4">
+                <mat-form-field class="example-container" [style.fontSize.px]=14>
+                  <mat-label>Seleccione producto</mat-label>
+                  <mat-select formControlName="productoId">
+                    <mat-option *ngFor="let producto of listProducto;let i= index" [value]="producto.id"
+                                (click)="getProductoIndex(producto.id,
+                                                          producto.nombre,
+                                                          producto.stock,
+                                                          producto.precio)">
+                      {{ producto.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="myForm.get('productoId').hasError('required') && myForm.get('productoId').touched" style="margin-top: -20px;">
+                  <span class="mda-form-msg">Este campo es <strong>requerido</strong> </span>
+                </div>
+              </div>
+
+              <!-- precio -->
+              <div class="col-lg-2">
+                <mat-form-field appearance="">
+                  <mat-label>Precio</mat-label>
+                  <input matInput type="number" class="example-right-align" formControlName="precio">
+                  <span matPrefix>&nbsp;</span>
+                  <span matSuffix>.00</span>
+                </mat-form-field>
+              </div>
+
+              <!-- cantidadSal -->
+              <div class="col-lg-2">
+                <mat-form-field appearance="">
+                  <mat-label>Cantidad</mat-label>
+                  <input matInput type="number" class="example-right-align" formControlName="cantidadSal">
+                  <span matSuffix>.00</span>
+                </mat-form-field>
+                <div *ngIf="myForm.get('cantidadSal').hasError('required') && myForm.get('cantidadSal').touched" style="margin-top: -20px;">
+                  <span  class="mda-form-msg">Este campo es <strong>requerido!</strong></span>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="example-button-row d-md-flex justify-content-md-star">
+                  <button mat-flat-button color="primary" (click)="addDetail()">Agregar</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="shadow-sm card">
+          <div class="card-body">
+
+            <div class="row">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                  <!-- nombre -->
+                  <div class="col-lg-4">
+                    <ng-container matColumnDef="nombre">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.nombre}} </td>
+                    </ng-container>
+                  </div>
+
+                  <!-- cantidad -->
+                  <div class="col-lg-2">
+                    <ng-container matColumnDef="cantidad">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.cantidad }} </td>
+                    </ng-container>
+                  </div>
+
+                  <!-- precio -->
+                  <div class="col-lg-2">
+                    <ng-container matColumnDef="precio">
+                      <th mat-header-cell *matHeaderCellDef> Precio </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.precio }} </td>
+                    </ng-container>
+                  </div>
+
+                  <!-- importe -->
+                  <div class="col-lg-2">
+                    <ng-container matColumnDef="importe">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
+                      <td mat-cell *matCellDef="let element"> {{element.importe}} </td>
+                    </ng-container>
+                  </div>
+
+                  <!-- acciones -->
+                  <div class="col-lg-1">
+                    <ng-container matColumnDef="acciones">
+                      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <a (click)="eliminarItem(i)" class="pointer" style="color: #E15639;">
+                          <mat-icon>delete</mat-icon>
+                        </a>
+                      </td>
+                    </ng-container>
+                  </div>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="shadow-sm card">
+          <div class="card-body">
+            <div class="row">
+              <div class="row">
+                <!-- totalSD -->
+                <div class="col-lg-12">
+                  <mat-form-field class="example-container d-flex justify-content-end" [style.fontSize.px]=14 >
+                    <mat-label>Total S/D:</mat-label>
+                    <input matInput formControlName="totalSD" type= "number" readonly><!-- {{ totalSD }} -->
+                  </mat-form-field>
+                  <div *ngIf="myForm.get('totalSD').hasError('required') && myForm.get('totalSD').touched" style="margin-top: -20px;">
+                    <span  class="mda-form-msg">Este campo es <strong>requerido!</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- totalD -->
+                <div class="col-lg-12">
+                  <mat-form-field class="example-container d-flex justify-content-end" [style.fontSize.px]=14>
+                    <mat-label>Total D:</mat-label>
+                    <input matInput formControlName="totalD" readonly>
+                  </mat-form-field>
+                  <div *ngIf="myForm.get('totalD').hasError('required') && myForm.get('totalD').touched" style="margin-top: -20px;">
+                    <span  class="mda-form-msg">Este campo es <strong>requerido!</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-10 d-flex justify-content-end">
+                  <button class="btn btn-secondary btn-lg"  type="button" routerLink="/dashboard/listIngreso/">Cancelar</button>
+
+                  <button class="btn btn-success btn-lg" type="button" style="margin-left: 10px;"
+                  (click)="add()" [disabled]="myForm.invalid">
+          <!--        <button class="btn btn-success btn-lg" type="button" style="margin-left: 10px;"
+                        (click)="add()" > -->
+                  Aceptar</button>
+                </div>
+
+                <!-- total -->
+                <div class="col-lg-2">
+                  <mat-form-field class="example-container d-flex justify-content-end" [style.fontSize.px]=14>
+                    <mat-label>Total:</mat-label>
+                    <input matInput formControlName="total" readonly>
+                  </mat-form-field>
+                  <div *ngIf="myForm.get('total').hasError('required') && myForm.get('total').touched" style="margin-top: -20px;">
+                    <span  class="mda-form-msg">Este campo es <strong>requerido!</strong></span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+ </mat-card>
+
